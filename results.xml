@@ -1,215 +1,38 @@
-<testsuites id="" name="" tests="30" failures="3" skipped="27" errors="0" time="104.15698300000001">
-<testsuite name="Pages\Login\login.spec.ts" timestamp="2025-10-01T09:32:51.290Z" hostname="chromium" tests="10" failures="3" skipped="7" time="90.841" errors="0">
-<testcase name="Login Tests - Remmi E2E › Successful login with OTP" classname="Pages\Login\login.spec.ts" time="33.74">
-<failure message="login.spec.ts:23:7 Successful login with OTP" type="FAILURE">
-<![CDATA[  [chromium] › Pages\Login\login.spec.ts:23:7 › Login Tests - Remmi E2E › Successful login with OTP 
-
-    Test timeout of 30000ms exceeded.
-
-    Error: page.goto: Test timeout of 30000ms exceeded.
-    Call log:
-      - navigating to "https://portal-staging.remmi.com.au/login", waiting until "load"
-
-
-       at Pages\Login\LoginAction.ts:15
-
-      13 |
-      14 |   async login(email: string, password: string, otpSecret: string) {
-    > 15 |     await this.page.goto('/login');
-         |                     ^
-      16 |
-      17 |     await test.step('Enter credentials', async () => {
-      18 |       await this.locators.emailField().fill(email);
-        at LoginActions.login (C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\LoginAction.ts:15:21)
-        at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\login.spec.ts:24:17
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\test-results\Pages-Login-login-Login-Te-4f2c8-E-Successful-login-with-OTP-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\test-results\Pages-Login-login-Login-Te-4f2c8-E-Successful-login-with-OTP-chromium\error-context.md
-]]>
-</failure>
+<testsuites id="" name="" tests="10" failures="0" skipped="0" errors="0" time="154.54498500000034">
+<testsuite name="Pages\Login\login.spec.ts" timestamp="2025-10-01T10:27:41.419Z" hostname="chromium" tests="10" failures="0" skipped="0" time="150.133" errors="0">
+<testcase name="Login Tests - Remmi E2E › Successful login with OTP" classname="Pages\Login\login.spec.ts" time="26.812">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Toggle password visibility" classname="Pages\Login\login.spec.ts" time="14.551">
 <system-out>
-<![CDATA[
-[[ATTACHMENT|test-results\Pages-Login-login-Login-Te-4f2c8-E-Successful-login-with-OTP-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|test-results\Pages-Login-login-Login-Te-4f2c8-E-Successful-login-with-OTP-chromium\error-context.md]]
+<![CDATA[✅ Password Toggled Successfully: Jahanzaib@123
+✅ Password Hidden Successfully
 ]]>
 </system-out>
 </testcase>
-<testcase name="Login Tests - Remmi E2E › Toggle password visibility" classname="Pages\Login\login.spec.ts" time="3.681">
-<failure message="login.spec.ts:27:7 Toggle password visibility" type="FAILURE">
-<![CDATA[  [chromium] › Pages\Login\login.spec.ts:27:7 › Login Tests - Remmi E2E › Toggle password visibility 
-
-    Error: page.goto: net::ERR_ABORTED; maybe frame was detached?
-    Call log:
-      - navigating to "https://portal-staging.remmi.com.au/login", waiting until "load"
-
-
-       at Pages\Login\LoginAction.ts:48
-
-      46 |   /** ✅ Toggle password visibility */
-      47 |   async togglePasswordVisibility(email: string, password: string) {
-    > 48 |     await this.page.goto('/login');
-         |                     ^
-      49 |
-      50 |     await this.locators.emailField().fill(email);
-      51 |     await this.locators.passwordField().fill(password);
-        at LoginActions.togglePasswordVisibility (C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\LoginAction.ts:48:21)
-        at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\login.spec.ts:28:17
-]]>
-</failure>
+<testcase name="Login Tests - Remmi E2E › Login without accepting terms" classname="Pages\Login\login.spec.ts" time="15.218">
 </testcase>
-<testcase name="Login Tests - Remmi E2E › Login without accepting terms" classname="Pages\Login\login.spec.ts" time="30.286">
-<failure message="login.spec.ts:31:7 Login without accepting terms" type="FAILURE">
-<![CDATA[  [chromium] › Pages\Login\login.spec.ts:31:7 › Login Tests - Remmi E2E › Login without accepting terms 
-
-    Test timeout of 30000ms exceeded.
-
-    Error: page.goto: Test timeout of 30000ms exceeded.
-    Call log:
-      - navigating to "https://portal-staging.remmi.com.au/login", waiting until "load"
-
-
-       at Pages\Login\LoginAction.ts:61
-
-      59 |   /** ✅ Login without accepting terms */
-      60 |   async withoutCheckbox(email: string, password: string) {
-    > 61 |     await this.page.goto('/login');
-         |                     ^
-      62 |
-      63 |     await this.locators.emailField().fill(email);
-      64 |     await this.locators.passwordField().fill(password);
-        at LoginActions.withoutCheckbox (C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\LoginAction.ts:61:21)
-        at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\login.spec.ts:32:17
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\test-results\Pages-Login-login-Login-Te-c03cc-gin-without-accepting-terms-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\test-results\Pages-Login-login-Login-Te-c03cc-gin-without-accepting-terms-chromium\error-context.md
-]]>
-</failure>
+<testcase name="Login Tests - Remmi E2E › Invalid email format" classname="Pages\Login\login.spec.ts" time="14.405">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Incorrect password" classname="Pages\Login\login.spec.ts" time="9.044">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Retry login after failed attempt" classname="Pages\Login\login.spec.ts" time="12.171">
 <system-out>
-<![CDATA[
-[[ATTACHMENT|test-results\Pages-Login-login-Login-Te-c03cc-gin-without-accepting-terms-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|test-results\Pages-Login-login-Login-Te-c03cc-gin-without-accepting-terms-chromium\error-context.md]]
+<![CDATA[❌ Tried login with incorrect credentials: wrongemail@example.com / WrongPass123!
 ]]>
 </system-out>
 </testcase>
-<testcase name="Login Tests - Remmi E2E › Invalid email format" classname="Pages\Login\login.spec.ts" time="23.134">
-<skipped>
-</skipped>
+<testcase name="Login Tests - Remmi E2E › Verify OTP during login" classname="Pages\Login\login.spec.ts" time="11.811">
 </testcase>
-<testcase name="Login Tests - Remmi E2E › Incorrect password" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
+<testcase name="Login Tests - Remmi E2E › Login with invalid OTP" classname="Pages\Login\login.spec.ts" time="20.911">
 </testcase>
-<testcase name="Login Tests - Remmi E2E › Retry login after failed attempt" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
+<testcase name="Login Tests - Remmi E2E › Forgot Password without entering OTP" classname="Pages\Login\login.spec.ts" time="17.805">
 </testcase>
-<testcase name="Login Tests - Remmi E2E › Verify OTP during login" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Login with invalid OTP" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Forgot Password without entering OTP" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Verify login placeholders" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-</testsuite>
-<testsuite name="Pages\Login\login.spec.ts" timestamp="2025-10-01T09:32:51.290Z" hostname="firefox" tests="10" failures="0" skipped="10" time="0" errors="0">
-<testcase name="Login Tests - Remmi E2E › Successful login with OTP" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Toggle password visibility" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Login without accepting terms" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Invalid email format" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Incorrect password" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Retry login after failed attempt" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Verify OTP during login" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Login with invalid OTP" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Forgot Password without entering OTP" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Verify login placeholders" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-</testsuite>
-<testsuite name="Pages\Login\login.spec.ts" timestamp="2025-10-01T09:32:51.290Z" hostname="webkit" tests="10" failures="0" skipped="10" time="0" errors="0">
-<testcase name="Login Tests - Remmi E2E › Successful login with OTP" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Toggle password visibility" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Login without accepting terms" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Invalid email format" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Incorrect password" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Retry login after failed attempt" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Verify OTP during login" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Login with invalid OTP" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Forgot Password without entering OTP" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Verify login placeholders" classname="Pages\Login\login.spec.ts" time="0">
-<skipped>
-</skipped>
+<testcase name="Login Tests - Remmi E2E › Verify login placeholders" classname="Pages\Login\login.spec.ts" time="7.405">
+<system-out>
+<![CDATA[Email placeholder: "Email"
+Password placeholder: "Password"
+]]>
+</system-out>
 </testcase>
 </testsuite>
 </testsuites>

@@ -1,16 +1,15 @@
 import { Page, expect, test } from '@playwright/test';
 import { LoginLocators } from './loginLocators';
 import { generateOtp } from '../../../helper/getOtp';
+
 export class LoginActions {
   private locators: LoginLocators;
 
   constructor(private page: Page) {
     this.locators = new LoginLocators(this.page);
-
   }
 
   /** ✅ Successful login with OTP */
-
   async login(email: string, password: string, otpSecret: string) {
     await this.page.goto('/login');
 
@@ -32,11 +31,9 @@ export class LoginActions {
     await test.step('Enter OTP', async () => {
       const otp = generateOtp(otpSecret);
       const otpInputs = this.locators.otpField();
-
       for (let i = 0; i < otp.length; i++) {
         await otpInputs.nth(i).fill(otp[i]);
       }
-
       await this.locators.continueButton().click();
     });
 
@@ -44,22 +41,26 @@ export class LoginActions {
   }
 
   /** ✅ Toggle password visibility */
-  async togglePasswordVisibility(email: string, password: string) {
+  async togglePasswordVisibility(email: string, password: string): Promise<void> {
     await this.page.goto('/login');
 
     await this.locators.emailField().fill(email);
     await this.locators.passwordField().fill(password);
+
+    // Toggle ON
     await this.locators.eyeIcon().click();
     await expect(this.locators.passwordField()).toHaveValue(password);
+    process.stdout.write(`✅ Password Toggled Successfully: ${password}\n`);
 
-    await this.locators.eyeIcon().click(); // hide again
+    // Toggle OFF
+    await this.locators.eyeIcon().click();
     await expect(this.locators.passwordField()).toHaveValue(password);
+    process.stdout.write(`✅ Password Hidden Successfully\n`);
   }
 
   /** ✅ Login without accepting terms */
   async withoutCheckbox(email: string, password: string) {
     await this.page.goto('/login');
-
     await this.locators.emailField().fill(email);
     await this.locators.passwordField().fill(password);
     await this.locators.signInButton().click();
@@ -68,12 +69,12 @@ export class LoginActions {
       'You must accept the Terms of Use and Privacy Policy'
     );
     await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toContainText('Terms of Use'); // partial match
   }
 
   /** ✅ Invalid email format */
   async invalidEmail(invalidEmail: string, password: string) {
     await this.page.goto('/login');
-
     await this.locators.emailField().fill(invalidEmail);
     await this.locators.passwordField().fill(password);
     await this.locators.termsCheckbox().check();
@@ -81,12 +82,12 @@ export class LoginActions {
 
     const errorMessage = this.page.getByText('Invalid email format');
     await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText('Invalid email format');
   }
 
   /** ✅ Incorrect password */
   async incorrectPassword(email: string, incorrectPassword: string) {
     await this.page.goto('/login');
-
     await this.locators.emailField().fill(email);
     await this.locators.passwordField().fill(incorrectPassword);
     await this.locators.termsCheckbox().check();
@@ -94,6 +95,7 @@ export class LoginActions {
 
     const errorMessage = this.page.getByText('You have entered incorrect password');
     await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText('You have entered incorrect password');
   }
 
   /** ✅ Retry login after failed attempt */
@@ -110,10 +112,16 @@ export class LoginActions {
     await this.locators.passwordField().fill(incorrectPassword);
     await this.locators.termsCheckbox().check();
     await this.locators.signInButton().click();
-    await expect(this.page.getByText('You have entered incorrect password')).toBeVisible();
+
+    const incorrectEmailMsg = this.page.getByText('You have entered incorrect email');
+    await expect(incorrectEmailMsg).toBeVisible();
+    await expect(incorrectEmailMsg).toHaveText('You have entered incorrect email');
+    process.stdout.write(`❌ Tried login with incorrect credentials: ${incorrectEmail} / ${incorrectPassword}\n`);
 
     // Retry with correct credentials
+    await this.locators.emailField().clear();
     await this.locators.emailField().fill(email);
+    await this.locators.passwordField().clear();
     await this.locators.passwordField().fill(password);
     await this.locators.signInButton().click();
   }
@@ -121,7 +129,6 @@ export class LoginActions {
   /** ✅ Verify OTP */
   async verifyOtp(email: string, password: string, otpSecret: string) {
     await this.page.goto('/login');
-
     await this.locators.emailField().fill(email);
     await this.locators.passwordField().fill(password);
     await this.locators.termsCheckbox().check();
@@ -141,7 +148,6 @@ export class LoginActions {
   /** ✅ Invalid OTP */
   async invalidOtp(email: string, password: string, invalidOtp: string) {
     await this.page.goto('/login');
-
     await this.locators.emailField().fill(email);
     await this.locators.passwordField().fill(password);
     await this.locators.termsCheckbox().check();
@@ -155,20 +161,28 @@ export class LoginActions {
     }
 
     await this.locators.continueButton().click();
-    await expect(this.page.getByText('Please enter the correct OTP code')).toBeVisible();
+
+    const otpError = this.page.getByText('Please enter the correct OTP code');
+    await expect(otpError).toBeVisible();
+    await expect(otpError).toHaveText('Please enter the correct OTP code');
   }
 
   /** ✅ Forgot Password without OTP */
   async forgetPasswordWithoutOtp(email: string) {
     await this.page.goto('/login');
-
     await this.locators.forgetPasswordLink().click();
     await this.locators.resetEmailField().fill(email);
     await this.locators.continueResetButton().click();
 
-    await expect(this.page.getByText('We sent an OTP code to your email')).toBeVisible();
+    const otpSent = this.page.getByText('We sent an OTP code to your email');
+    await expect(otpSent).toBeVisible();
+    await expect(otpSent).toHaveText('We sent an OTP code to your email');
+
     await this.locators.continueButton().click();
-    await expect(this.page.getByText('Please enter OTP code')).toBeVisible();
+
+    const otpRequired = this.page.getByText('Please enter OTP code');
+    await expect(otpRequired).toBeVisible();
+    await expect(otpRequired).toHaveText('Please enter OTP code');
   }
 
   /** ✅ Verify placeholders */
