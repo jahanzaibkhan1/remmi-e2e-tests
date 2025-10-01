@@ -1,26 +1,32 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="34.251099000001325">
-<testsuite name="Pages\MyProfile\MyProfileTest.spec.ts" timestamp="2025-10-01T12:45:09.064Z" hostname="chromium" tests="1" failures="0" skipped="0" time="29.81" errors="0">
-<testcase name="Verify profile fields display correctly and are non-editable" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="29.81">
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="16.08921499999985">
+<testsuite name="Pages\MyProfile\MyProfileTest.spec.ts" timestamp="2025-10-01T13:00:04.982Z" hostname="chromium" tests="1" failures="1" skipped="0" time="10.488" errors="0">
+<testcase name="Verify profile fields display correctly and are non-editable" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="10.488">
+<failure message="MyProfileTest.spec.ts:17:5 Verify profile fields display correctly and are non-editable" type="FAILURE">
+<![CDATA[  [chromium] › Pages\MyProfile\MyProfileTest.spec.ts:17:5 › Verify profile fields display correctly and are non-editable 
+
+    Error: page.goto: net::ERR_NETWORK_CHANGED at https://portal-staging.remmi.com.au/login
+    Call log:
+      - navigating to "https://portal-staging.remmi.com.au/login", waiting until "load"
+
+
+       at Pages\Login\LoginAction.ts:14
+
+      12 |   /** ✅ Successful login with OTP */
+      13 |   async login(email: string, password: string, otpSecret: string) {
+    > 14 |     await this.page.goto('/login');
+         |                     ^
+      15 |
+      16 |     await test.step('Enter credentials', async () => {
+      17 |       await this.locators.emailField().fill(email);
+        at LoginActions.login (C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\LoginAction.ts:14:21)
+        at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\MyProfile\MyProfileTest.spec.ts:19:15
+
+    Error Context: ..\test-results\Pages-MyProfile-MyProfileT-32a36-rectly-and-are-non-editable-chromium\error-context.md
+]]>
+</failure>
 <system-out>
-<![CDATA[First Name value: "Jahanzaib"
-First Name is non-editable ✅
-Last Name value: "Xenex"
-Last Name is non-editable ✅
-Email value: "jahanzaib.xenex@gmail.com"
-Email is non-editable ✅
-Mobile Number not visible or does not exist
-Telephone value: "Telephone"
-Telephone is non-editable ✅
-Job Title value: "EMPTY"
-Job Title is non-editable ✅
-Biography value: "EMPTY"
-Biography is non-editable ✅
-Role value: "Operations Manager"
-Role is non-editable ✅
-Group value: "EMPTY"
-Group is non-editable ✅
-Office value: "QA Tester"
-Office is non-editable ✅
+<![CDATA[
+[[ATTACHMENT|test-results\Pages-MyProfile-MyProfileT-32a36-rectly-and-are-non-editable-chromium\error-context.md]]
 ]]>
 </system-out>
 </testcase>
