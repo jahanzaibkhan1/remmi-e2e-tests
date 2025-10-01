@@ -1,36 +1,26 @@
-<testsuites id="" name="" tests="10" failures="0" skipped="0" errors="0" time="154.54498500000034">
-<testsuite name="Pages\Login\login.spec.ts" timestamp="2025-10-01T10:27:41.419Z" hostname="chromium" tests="10" failures="0" skipped="0" time="150.133" errors="0">
-<testcase name="Login Tests - Remmi E2E › Successful login with OTP" classname="Pages\Login\login.spec.ts" time="26.812">
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Toggle password visibility" classname="Pages\Login\login.spec.ts" time="14.551">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="34.251099000001325">
+<testsuite name="Pages\MyProfile\MyProfileTest.spec.ts" timestamp="2025-10-01T12:45:09.064Z" hostname="chromium" tests="1" failures="0" skipped="0" time="29.81" errors="0">
+<testcase name="Verify profile fields display correctly and are non-editable" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="29.81">
 <system-out>
-<![CDATA[✅ Password Toggled Successfully: Jahanzaib@123
-✅ Password Hidden Successfully
-]]>
-</system-out>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Login without accepting terms" classname="Pages\Login\login.spec.ts" time="15.218">
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Invalid email format" classname="Pages\Login\login.spec.ts" time="14.405">
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Incorrect password" classname="Pages\Login\login.spec.ts" time="9.044">
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Retry login after failed attempt" classname="Pages\Login\login.spec.ts" time="12.171">
-<system-out>
-<![CDATA[❌ Tried login with incorrect credentials: wrongemail@example.com / WrongPass123!
-]]>
-</system-out>
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Verify OTP during login" classname="Pages\Login\login.spec.ts" time="11.811">
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Login with invalid OTP" classname="Pages\Login\login.spec.ts" time="20.911">
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Forgot Password without entering OTP" classname="Pages\Login\login.spec.ts" time="17.805">
-</testcase>
-<testcase name="Login Tests - Remmi E2E › Verify login placeholders" classname="Pages\Login\login.spec.ts" time="7.405">
-<system-out>
-<![CDATA[Email placeholder: "Email"
-Password placeholder: "Password"
+<![CDATA[First Name value: "Jahanzaib"
+First Name is non-editable ✅
+Last Name value: "Xenex"
+Last Name is non-editable ✅
+Email value: "jahanzaib.xenex@gmail.com"
+Email is non-editable ✅
+Mobile Number not visible or does not exist
+Telephone value: "Telephone"
+Telephone is non-editable ✅
+Job Title value: "EMPTY"
+Job Title is non-editable ✅
+Biography value: "EMPTY"
+Biography is non-editable ✅
+Role value: "Operations Manager"
+Role is non-editable ✅
+Group value: "EMPTY"
+Group is non-editable ✅
+Office value: "QA Tester"
+Office is non-editable ✅
 ]]>
 </system-out>
 </testcase>
