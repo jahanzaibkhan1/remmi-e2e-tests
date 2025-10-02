@@ -1,12 +1,12 @@
-<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="39.6879179999996">
-<testsuite name="Pages\MyProfile\MyProfileTest.spec.ts" timestamp="2025-10-01T13:01:31.241Z" hostname="chromium" tests="1" failures="1" skipped="0" time="35.173" errors="0">
-<testcase name="Verify profile fields display correctly and are non-editable" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="35.173">
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="36.562989">
+<testsuite name="Pages\MyProfile\MyProfileTest.spec.ts" timestamp="2025-10-02T13:18:49.283Z" hostname="chromium" tests="1" failures="1" skipped="0" time="32.401" errors="0">
+<testcase name="Verify profile fields display correctly and are non-editable" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="32.401">
 <failure message="MyProfileTest.spec.ts:17:5 Verify profile fields display correctly and are non-editable" type="FAILURE">
 <![CDATA[  [chromium] › Pages\MyProfile\MyProfileTest.spec.ts:17:5 › Verify profile fields display correctly and are non-editable 
 
     Test timeout of 30000ms exceeded.
 
-    Error: page.goto: Test timeout of 30000ms exceeded.
+    Error: page.goto: Target page, context or browser has been closed
     Call log:
       - navigating to "https://portal-staging.remmi.com.au/login", waiting until "load"
 
@@ -22,15 +22,8 @@
       17 |       await this.locators.emailField().fill(email);
         at LoginActions.login (C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\LoginAction.ts:14:21)
         at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\MyProfile\MyProfileTest.spec.ts:19:15
-
-    Error Context: ..\test-results\Pages-MyProfile-MyProfileT-32a36-rectly-and-are-non-editable-chromium\error-context.md
 ]]>
 </failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|test-results\Pages-MyProfile-MyProfileT-32a36-rectly-and-are-non-editable-chromium\error-context.md]]
-]]>
-</system-out>
 </testcase>
 </testsuite>
 </testsuites>

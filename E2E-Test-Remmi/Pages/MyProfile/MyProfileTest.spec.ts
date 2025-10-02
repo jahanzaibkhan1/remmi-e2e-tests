@@ -5,7 +5,8 @@ import * as dotenv from 'dotenv';
 import path from 'path';
 
 // Load .env
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+
 
 // Pull user from env
 const user = {

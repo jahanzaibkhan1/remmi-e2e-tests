@@ -5,7 +5,8 @@ import path from 'path';
 /**
  * Read environment variables from .env file
  */
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+
 
 /**
  * Playwright Test Configuration

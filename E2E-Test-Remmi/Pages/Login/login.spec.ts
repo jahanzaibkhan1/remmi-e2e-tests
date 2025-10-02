@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 import path from 'path';
 
 // Load environment variables from project root
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 // Extract credentials directly from env
 const { E2E_MANAGER_EMAIL, E2E_MANAGER_PASSWORD, E2E_MANAGER_OTP_SECRET } = process.env;
