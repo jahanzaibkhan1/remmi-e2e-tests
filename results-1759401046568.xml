@@ -1,0 +1,32 @@
+<testsuites id="" name="" tests="14" failures="0" skipped="0" errors="0" time="222.6600429999996">
+<testsuite name="Pages\Login\login.spec.ts" timestamp="2025-10-02T13:09:25.754Z" hostname="chromium" tests="14" failures="0" skipped="0" time="217.867" errors="0">
+<testcase name="Login Tests - Remmi E2E › Positive Flows › Successful login with OTP" classname="Pages\Login\login.spec.ts" time="26.564">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Positive Flows › Verify OTP during login" classname="Pages\Login\login.spec.ts" time="20.733">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Positive Flows › Verify login placeholders" classname="Pages\Login\login.spec.ts" time="15.722">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Toggle password visibility" classname="Pages\Login\login.spec.ts" time="10.735">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Login without accepting terms" classname="Pages\Login\login.spec.ts" time="9.287">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Invalid email format" classname="Pages\Login\login.spec.ts" time="9.234">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Incorrect password" classname="Pages\Login\login.spec.ts" time="10.631">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Retry login after failed attempt" classname="Pages\Login\login.spec.ts" time="18.619">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Login with invalid OTP" classname="Pages\Login\login.spec.ts" time="13.374">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Forgot Password without entering OTP" classname="Pages\Login\login.spec.ts" time="16.446">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Empty email" classname="Pages\Login\login.spec.ts" time="14.453">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Empty password" classname="Pages\Login\login.spec.ts" time="13.986">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Both email and password empty" classname="Pages\Login\login.spec.ts" time="21.588">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › OTP shorter/longer than expected" classname="Pages\Login\login.spec.ts" time="16.495">
+</testcase>
+</testsuite>
+</testsuites>
