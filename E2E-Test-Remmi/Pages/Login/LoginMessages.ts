@@ -1,0 +1,15 @@
+export const LoginMessages = {
+  emptyEmail: 'Email is required',
+  invalidEmail: 'Invalid email format',
+  emptyPassword: 'Password is required',
+  incorrect_Email_Password: 'You have entered incorrect email',
+  incorrectEmail: 'Invalid email format',
+  incorrectPassword: 'You have entered incorrect password',
+  termsNotAccepted: 'You must accept the Terms of Use and Privacy Policy',
+  otpIncorrect: 'Please enter the correct OTP code',
+  otpRequired: 'Please enter OTP code',
+  otpSent: 'OTP sent successfully',
+  emailPlaceholder: 'Email',
+  passwordPlaceholder: 'Password',
+  otpPageHeader:'We sent an OTP code to your email',
+};

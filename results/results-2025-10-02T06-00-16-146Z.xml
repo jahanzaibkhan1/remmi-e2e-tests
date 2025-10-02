@@ -1,0 +1,84 @@
+<testsuites id="" name="" tests="10" failures="0" skipped="10" errors="0" time="7.909">
+<testsuite name="Pages\Login\login.spec.ts" timestamp="2025-10-02T06:06:33.284Z" hostname="chromium" tests="10" failures="0" skipped="10" time="2.844" errors="0">
+<testcase name="Login Flow › valid login with OTP" classname="Pages\Login\login.spec.ts" time="0.866">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login Flow › toggle password visibility" classname="Pages\Login\login.spec.ts" time="0.287">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login Flow › Negative Flows › login without accepting terms" classname="Pages\Login\login.spec.ts" time="0.229">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login Flow › Negative Flows › invalid email" classname="Pages\Login\login.spec.ts" time="0.21">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login Flow › Negative Flows › incorrect password" classname="Pages\Login\login.spec.ts" time="0.216">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login Flow › Negative Flows › empty email field" classname="Pages\Login\login.spec.ts" time="0.207">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login Flow › Negative Flows › empty password field" classname="Pages\Login\login.spec.ts" time="0.176">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login Flow › Negative Flows › empty email &amp; password" classname="Pages\Login\login.spec.ts" time="0.272">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login Flow › Negative Flows › invalid OTP (too short)" classname="Pages\Login\login.spec.ts" time="0.193">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login Flow › Negative Flows › invalid OTP (too long)" classname="Pages\Login\login.spec.ts" time="0.188">
+<properties>
+<property name="skip" value="Missing LOGIN_EMAIL, LOGIN_PASSWORD, or OTP_SECRET in environment">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

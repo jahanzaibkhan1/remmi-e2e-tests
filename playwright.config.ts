@@ -7,7 +7,6 @@ import path from 'path';
  */
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-
 /**
  * Playwright Test Configuration
  * See: https://playwright.dev/docs/test-configuration
@@ -31,7 +30,7 @@ export default defineConfig({
   reporter: [
     ['list'],
     ['html', { open: 'never', outputFolder: 'playwright-report' }],
-    ['junit', { outputFile: 'results.xml' }],
+    ['junit', { outputFile: `results-${Date.now()}.xml` }], // timestamp prevents overwrites
   ],
 
   /* Shared settings for all projects */
@@ -91,7 +90,8 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
+  //   url: process.env.BASE_URL,
   //   reuseExistingServer: !process.env.CI,
+  //   timeout: 120 * 1000, // 2 minutes
   // },
 });
