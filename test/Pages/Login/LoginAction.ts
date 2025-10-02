@@ -1,11 +1,11 @@
 import { Page, expect, test } from '@playwright/test';
-import { LoginLocators } from '../../../E2E-Test-Remmi/Pages/Login/loginLocators';
+import { LocatorLogin } from '../../../E2E-Test-Remmi/Pages/Login/LoginLocators';
 import { generateOtp } from '../../../helper/getOtp';
 export class LoginActions {
-  private locators: LoginLocators;
+  private locators: LocatorLogin;
 
   constructor(private page: Page) {
-    this.locators = new LoginLocators(this.page);
+    this.locators = new LocatorLogin(this.page);
 
   }
 
