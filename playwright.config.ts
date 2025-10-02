@@ -5,7 +5,16 @@ import path from 'path';
 /**
  * Read environment variables from .env file
  */
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+
+/**
+ * Validate required environment variables
+ */
+if (!process.env.BASE_URL) {
+  throw new Error(
+    '❌ BASE_URL is not defined. Please set it in your .env file or CI environment.'
+  );
+}
 
 /**
  * Playwright Test Configuration
@@ -30,7 +39,7 @@ export default defineConfig({
   reporter: [
     ['list'],
     ['html', { open: 'never', outputFolder: 'playwright-report' }],
-    ['junit', { outputFile: 'results.xml' }],
+    ['junit', { outputFile: `results-${Date.now()}.xml` }], // timestamp prevents overwrites
   ],
 
   /* Shared settings for all projects */
@@ -90,7 +99,8 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
+  //   url: process.env.BASE_URL,
   //   reuseExistingServer: !process.env.CI,
+  //   timeout: 120 * 1000, // 2 minutes
   // },
 });

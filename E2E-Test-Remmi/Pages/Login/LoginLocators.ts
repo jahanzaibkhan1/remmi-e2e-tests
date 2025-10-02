@@ -1,6 +1,6 @@
-import { Page, Locator } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 
-export class LoginLocators {
+export class LocatorLogin {
   private page: Page;
 
   constructor(page: Page) {
@@ -19,13 +19,14 @@ export class LoginLocators {
 
   /** Eye icon to toggle password visibility */
   eyeIcon(): Locator {
-    return this.page.locator('form img'); // Prefer data-testid if available
+    return this.page.locator("//img[@class='icon-close']");
   }
 
-  /** Terms & conditions checkbox */
+  /** Terms & conditions checkbox with partial text match */
   termsCheckbox(): Locator {
-    return this.page.getByText('I agree to all the statements');
+    return this.page.getByText(/I agree to all the statements/i, { exact: false });
   }
+
 
   /** Sign in button */
   signInButton(): Locator {
@@ -54,6 +55,10 @@ export class LoginLocators {
 
   /** Continue button on Reset Password */
   continueResetButton(): Locator {
+    return this.page.getByRole('button', { name: 'Continue' });
+  }
+
+  continueOtpButton(): Locator {
     return this.page.getByRole('button', { name: 'Continue' });
   }
 
