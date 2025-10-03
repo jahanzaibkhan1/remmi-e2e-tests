@@ -4,22 +4,75 @@ import { LoginActions } from '../Login/LoginAction';
 import * as dotenv from 'dotenv';
 import path from 'path';
 
-// Load .env
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
+const { E2E_MANAGER_EMAIL, E2E_MANAGER_PASSWORD, E2E_MANAGER_OTP_SECRET } = process.env;
 
-// Pull user from env
-const user = {
-  email: process.env.E2E_MANAGER_EMAIL!,
-  password: process.env.E2E_MANAGER_PASSWORD!,
-  otpSecret: process.env.E2E_MANAGER_OTP_SECRET!,
-};
+test.describe('My Profile Tests - Remmi E2E', () => {
+  let login: LoginActions;
+  let profile: MyProfileActions;
 
-test('Verify profile fields display correctly and are non-editable', async ({ page }) => {
-  const login = new LoginActions(page);
-  await login.login(user.email, user.password, user.otpSecret);
+  test.beforeEach(async ({ page }) => {
+    login = new LoginActions(page);
+    profile = new MyProfileActions(page);
 
-  const profileActions = new MyProfileActions(page);
-  await profileActions.navigateToProfilePage();
-  await profileActions.verifyAllProfileFields();
+    // Skip dynamically if credentials missing
+    if (!E2E_MANAGER_EMAIL || !E2E_MANAGER_PASSWORD || !E2E_MANAGER_OTP_SECRET) {
+      test.skip(true, 'Skipping profile tests: missing environment credentials');
+    }
+
+    // Login first
+    await login.login(E2E_MANAGER_EMAIL!, E2E_MANAGER_PASSWORD!, E2E_MANAGER_OTP_SECRET!);
+  });
+
+  // ---------------- Positive scenarios ----------------
+  test.describe('Positive Flows', () => {
+    test('1. Profile fields show data & non-editable', async () => {
+      await profile.navigateToProfilePage();
+      await profile.verifyAllProfileFields();
+    });
+
+    test('2. PIN field allows input', async () => {
+      await profile.navigateToProfilePage();
+      await profile.enterPinAndSave('1234');
+    });
+
+    test('3. Correct PIN allows private download', async () => {
+      await profile.navigateToLibrary(); // Navigate to library instead of profile
+      await profile.downloadWithCorrectPin('1234');
+    });
+
+    // test('4. Calendar color selection updates correctly', async () => {
+    //   await profile.navigateToProfilePage();
+    //   await profile.updateCalendarColor('#FF0000');
+    // });
+  });
+
+  // ---------------- Negative scenarios ----------------
+  test.describe('Negative Flows', () => {
+    test('5. Fields remain non-editable if data missing', async () => {
+      await profile.navigateToProfilePage();
+      await profile.verifyAllProfileFields(); // values empty but non-editable
+    });
+
+    test('6. PIN is required for private download', async () => {
+      await profile.navigateToLibrary();
+      await profile.downloadWithEmptyPin();
+    });
+
+    test('7. Verify PIN is required for private download', async () => {
+      await profile.navigateToLibrary();
+      await profile.VerifyPINisRequired('1234');
+    });
+
+    test('8. Incorrect PIN prevents private download', async () => {
+      await profile.navigateToLibrary();
+      await profile.downloadWithIncorrectPin('0000');
+    });
+
+    // test('9. System does not allow invalid calendar color', async () => {
+    //   await profile.navigateToProfilePage();
+    //   await profile.tryInvalidCalendarColor('INVALID_COLOR');
+    // });
+  });
 });
