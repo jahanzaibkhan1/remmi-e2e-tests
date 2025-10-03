@@ -8,15 +8,6 @@ import path from 'path';
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 /**
- * Validate required environment variables
- */
-if (!process.env.BASE_URL) {
-  throw new Error(
-    '❌ BASE_URL is not defined. Please set it in your .env file or CI environment.'
-  );
-}
-
-/**
  * Playwright Test Configuration
  * See: https://playwright.dev/docs/test-configuration
  */
@@ -64,7 +55,10 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'],
+      viewport: { width: 1320, height: 620 },
+      headless: true,
+      },
     },
     // {
     //   name: 'firefox',
