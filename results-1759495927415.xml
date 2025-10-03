@@ -1,0 +1,16 @@
+<testsuites id="" name="" tests="3" failures="0" skipped="3" errors="0" time="12.948589000000007">
+<testsuite name="Pages\MyProfile\MyProfileTest.spec.ts" timestamp="2025-10-03T12:55:07.349Z" hostname="chromium" tests="3" failures="0" skipped="3" time="8.442" errors="0">
+<testcase name="My Profile Tests - Remmi E2E › Positive Flows › 1. Profile fields show data &amp; non-editable" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="8.442">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Positive Flows › 2. PIN field allows input" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Positive Flows › 3. Correct PIN allows private download" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

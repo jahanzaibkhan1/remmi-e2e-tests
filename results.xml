@@ -1,12 +1,3 @@
-<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="34.911083">
-<testsuite name="Pages\Login\login.spec.ts" timestamp="2025-10-02T06:19:20.950Z" hostname="chromium" tests="1" failures="1" skipped="0" time="30.205" errors="0">
-<testcase name="Login Tests - Remmi E2E › Successful login with OTP" classname="Pages\Login\login.spec.ts" time="30.205">
-<failure message="login.spec.ts:23:7 Successful login with OTP" type="FAILURE">
-<![CDATA[  [chromium] › Pages\Login\login.spec.ts:23:7 › Login Tests - Remmi E2E › Successful login with OTP 
-
-    Test timeout of 30000ms exceeded.
-
-    Error: page.goto: Test timeout of 30000ms exceeded.
     Call log:
       - navigating to "https://portal-staging.remmi.com.au/login", waiting until "load"
 
@@ -21,22 +12,8 @@
       16 |     await test.step('Enter credentials', async () => {
       17 |       await this.locators.emailField().fill(email);
         at LoginActions.login (C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\LoginAction.ts:14:21)
-        at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\login.spec.ts:24:17
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\test-results\Pages-Login-login-Login-Te-4f2c8-E-Successful-login-with-OTP-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\test-results\Pages-Login-login-Login-Te-4f2c8-E-Successful-login-with-OTP-chromium\error-context.md
 ]]>
 </failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|test-results\Pages-Login-login-Login-Te-4f2c8-E-Successful-login-with-OTP-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|test-results\Pages-Login-login-Login-Te-4f2c8-E-Successful-login-with-OTP-chromium\error-context.md]]
-]]>
-</system-out>
 </testcase>
 </testsuite>
 </testsuites>

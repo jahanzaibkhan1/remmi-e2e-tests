@@ -3,7 +3,6 @@ import { LoginActions } from './LoginAction';
 import * as dotenv from 'dotenv';
 import path from 'path';
 
-// Load env
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 const { E2E_MANAGER_EMAIL, E2E_MANAGER_PASSWORD, E2E_MANAGER_OTP_SECRET } = process.env;
