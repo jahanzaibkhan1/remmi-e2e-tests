@@ -1,11 +1,11 @@
 import { Page, Locator } from '@playwright/test';
 
 /**
- * Class-based locators for My Profile page
- * Organized by sections: Navigation, Fields, PIN, Calendar, Buttons, Toasts
+ * Locators for the My Profile page.
+ * Organized into clear sections for navigation, fields, buttons, PIN, and toast messages.
  */
 export class MyProfileLocators {
-  constructor(private page: Page) { }
+  constructor(private page: Page) {}
 
   // ---------------- Navigation ----------------
   profileIcon(): Locator {
@@ -30,7 +30,11 @@ export class MyProfileLocators {
   }
 
   mobileNumber(): Locator {
-    return this.page.locator('div').filter({ hasText: /^Email \*\+61Mobile NumberTelephone$/ }).getByRole('textbox').nth(1);
+    return this.page
+      .locator('div')
+      .filter({ hasText: /^Email \*\+61Mobile NumberTelephone$/ })
+      .getByRole('textbox')
+      .nth(1);
   }
 
   telephone(): Locator {
@@ -70,44 +74,66 @@ export class MyProfileLocators {
     return this.page.locator("input[placeholder='e.g 1234']");
   }
 
-  // ---------------- Private Library Download ----------------
+  pinPopupField(): Locator {
+    return this.page.getByPlaceholder('PIN');
+  }
+
+  // ---------------- Private Library ----------------
   libraryLink(): Locator {
     return this.page.locator("//li[@data-label='Library']");
   }
+
   searchBox(): Locator {
     return this.page.locator('#wrapper').getByRole('textbox', { name: 'Search' });
   }
+
   clickImage(): Locator {
     return this.page.locator("(//img[@class='img-hub2 ng-star-inserted'])[1]");
   }
+
   privateDownloadButton(): Locator {
     return this.page.locator('.p-element.mr-3.pi.pi-download');
   }
 
-  pinPopupField(): Locator {
-    return this.page.getByPlaceholder('PIN');
+  // ---------------- Calendar ----------------
+  calendarColor(): Locator {
+    return this.page.locator(
+      'input.p-colorpicker-preview.p-inputtext[data-pc-section="input"]'
+    );
+  }
+
+  // ---------------- Buttons ----------------
+  updateButton(): Locator {
+    return this.page.locator('button:has-text("Update")').first();
   }
 
   saveButton(): Locator {
     return this.page.getByRole('button', { name: 'Save' });
   }
 
-  // ---------------- Calendar ----------------
-  calendarColor(): Locator {
-    return this.page.locator('input.p-colorpicker-preview.p-inputtext[data-pc-section="input"]');
-  }
-
-  // ---------------- Buttons ----------------
-  updateButton(): Locator {
-    return this.page.locator('button:has-text("Update")');
+  pinConfirmButton(): Locator {
+    return this.page.getByRole('button', { name: /Confirm|OK|Save/i });
   }
 
   // ---------------- Toasts / Messages ----------------
-  successToast(): Locator {
-    return this.page.locator('.toast-success');
+  
+  toast(): Locator {
+    return this.page.locator('div[role="alert"]');
   }
 
-  errorToast(): Locator {
-    return this.page.locator('.toast-error');
+  profileUpdatedToast(): Locator {
+    return this.page.getByRole('alert', { name: /Profile has been updated/i });
+  }
+
+  pinMatchedToast(): Locator {
+    return this.page.getByRole('alert', { name: /PIN matched successfully/i });
+  }
+
+  pinEmptyErrorToast(): Locator {
+    return this.page.getByRole('alert', { name: /Please enter PIN first/i });
+  }
+
+  pinInvalidErrorToast(): Locator {
+    return this.page.getByRole('alert', { name: /Invalid PIN/i });
   }
 }
