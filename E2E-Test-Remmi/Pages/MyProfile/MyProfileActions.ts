@@ -62,24 +62,30 @@ export class MyProfileActions {
   }
 
   // ---------------- PIN ----------------
-  async enterPinAndSave(pin: string) {
-    const pinField = this.locators.pin().first();
-    await pinField.clear();
-    await pinField.fill(pin);
-    expect(await pinField.inputValue()).toBe(pin);
+async enterPinAndSave(pin: string) {
+  const pinField = this.locators.pin().first();
+  await pinField.fill(pin);
+  expect(await pinField.inputValue()).toBe(pin);
 
-    const updateButton = this.locators.updateButton();
-    await expect(updateButton).toBeVisible({ timeout: 10000 });
-    await updateButton.scrollIntoViewIfNeeded();
+  const updateButton = this.locators.updateButton().first();
 
-    const toast = this.locators.profileUpdatedToast().first();
+  // Ensure visible and scroll into view
+  await expect(updateButton).toBeVisible({ timeout: 10000 });
+  await updateButton.scrollIntoViewIfNeeded();
 
-    await Promise.all([
-      updateButton.click({ force: true }),
-    ]);
-
-    await expect.soft(toast).toContainText(/Profile has been updated/i);
+  // Try normal click first, then force click if needed
+  try {
+    await updateButton.click({ timeout: 5000 });
+  } catch {
+    console.log('Normal click failed, using force click');
+    await updateButton.click({ force: true });
   }
+
+  // Wait for toast
+  const toast = this.locators.profileUpdatedToast().first();
+  await expect.soft(toast).toHaveText(/Profile has been updated/i, { timeout: 15000 });
+}
+
 
   // ---------------- Library ----------------
   async navigateToLibrary() {
