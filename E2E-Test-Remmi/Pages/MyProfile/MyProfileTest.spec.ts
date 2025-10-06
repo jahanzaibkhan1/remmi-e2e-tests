@@ -62,12 +62,12 @@ test.describe('My Profile Tests - Remmi E2E', () => {
 
     test('7. Verify PIN is required for private download', async () => {
       await profile.navigateToLibrary();
-      await profile.VerifyPINisRequired('1234');
+      await profile.verifyPINIsRequired();
     });
 
     test('8. Incorrect PIN prevents private download', async () => {
       await profile.navigateToLibrary();
-      await profile.downloadWithIncorrectPin('0000');
+      await profile.downloadWithIncorrectPin('1230');
     });
 
     // test('9. System does not allow invalid calendar color', async () => {

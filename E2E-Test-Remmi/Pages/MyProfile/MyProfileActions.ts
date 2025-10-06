@@ -17,9 +17,9 @@ export class MyProfileActions {
       await expect(profileIcon).toBeVisible({ timeout: 20000 });
       await profileIcon.click({ force: true });
 
-      const myProfileBtn = this.locators.myProfileButton();
-      await expect(myProfileBtn).toBeVisible({ timeout: 20000 });
-      await myProfileBtn.click({ force: true });
+      const myProfileButton = this.locators.myProfileButton();
+      await expect(myProfileButton).toBeVisible({ timeout: 20000 });
+      await myProfileButton.click({ force: true });
     });
   }
 
@@ -60,159 +60,121 @@ export class MyProfileActions {
     await this.verifyField('Group', () => this.locators.group());
     await this.verifyField('Office', () => this.locators.office());
   }
- // enter and Save 
-  async enterPinAndSave(pin: string) {
 
+  // ---------------- PIN ----------------
+  async enterPinAndSave(pin: string) {
     const pinField = this.locators.pin().first();
+    await pinField.clear();
     await pinField.fill(pin);
     expect(await pinField.inputValue()).toBe(pin);
 
-    const updateButton = this.locators.updateButton().first();
+    const updateButton = this.locators.updateButton();
     await expect(updateButton).toBeVisible({ timeout: 10000 });
     await updateButton.scrollIntoViewIfNeeded();
-    await updateButton.click({ force: true });
 
-    const toast = this.locators.successToast().first();
-    await expect(toast).toBeVisible({timeout:10000})
-    await expect(toast).toContainText(/Profile has been updated/i);
-    ;
+    const toast = this.locators.profileUpdatedToast().first();
+
+    await Promise.all([
+      updateButton.click({ force: true }),
+    ]);
+
+    await expect.soft(toast).toContainText(/Profile has been updated/i);
   }
 
-  // ---------------- Library Navigation ----------------
+  // ---------------- Library ----------------
   async navigateToLibrary() {
     await test.step('Navigate to Library page', async () => {
-      const libraryIcon = this.locators.libraryLink().first();
-      await expect(libraryIcon).toBeVisible({ timeout: 15000 });
-      await libraryIcon.scrollIntoViewIfNeeded();
-      await libraryIcon.click({ force: true });
+      const libraryLink = this.locators.libraryLink().first();
+      await expect(libraryLink).toBeVisible({ timeout: 15000 });
+      await libraryLink.scrollIntoViewIfNeeded();
+      await libraryLink.click({ force: true });
     });
   }
 
   // ---------------- Private Download ----------------
+async downloadWithCorrectPin(pin: string) {
+  await test.step('Download with correct PIN', async () => {
+    const image = this.locators.clickImage().first();
+    await image.click({ force: true });
 
-  async downloadWithCorrectPin(pin: string) {
-    // ---------------- Navigate and select document ----------------
-    await test.step('Navigate to library and select document', async () => {
-      const libraryLink = this.locators.libraryLink().first();
-      await expect(libraryLink).toBeVisible({ timeout: 15000 });
-      await libraryLink.scrollIntoViewIfNeeded();
-      await libraryLink.click({ force: true });
+    const downloadBtn = this.locators.privateDownloadButton().first();
+    await expect(downloadBtn).toBeVisible({ timeout: 15000 });
+    await downloadBtn.click({ force: true });
+
+    // Fill PIN directly in the popup
+    const pinPopup = this.locators.pinPopupField().first();
+    await expect(pinPopup).toBeVisible({ timeout: 15000 });
+    await pinPopup.fill(pin);
+
+    const confirmButton = this.page.getByRole('button', { name: /Confirm|Save/i });
+    await expect(confirmButton).toBeVisible({ timeout: 10000 });
+    await confirmButton.scrollIntoViewIfNeeded();
+    await confirmButton.click({ force: true });
+
+    // Wait for PIN matched success toast
+    const successToast = this.locators.pinMatchedToast().first();
+    await expect.soft(successToast).toBeVisible({ timeout: 7000 });
+    await expect.soft(successToast).toContainText(/PIN matched successfully/i);
+  });
+}
+
+  // ---------------- Verify PIN Required ----------------
+  async verifyPINIsRequired() {
+    await test.step('Verify PIN is required before download', async () => {
 
       const image = this.locators.clickImage().first();
       await image.click({ force: true });
-    });
 
-    // ---------------- Download with correct PIN ----------------
-    await test.step('Download document with correct PIN', async () => {
       const downloadBtn = this.locators.privateDownloadButton().first();
-      await expect(downloadBtn).toBeVisible({ timeout: 15000 });
-      await downloadBtn.scrollIntoViewIfNeeded();
       await downloadBtn.click({ force: true });
 
       const saveButton = this.locators.saveButton();
       await saveButton.click({ force: true });
 
-      // // Verify toast Error
-      const toast = this.locators.errorToast().first();
+      const toast = this.locators.pinEmptyErrorToast().first();
       await expect(toast).toBeVisible({ timeout: 15000 });
       await expect(toast).toHaveText(/Please enter PIN first/i);
       console.log(toast);
-
-       // Fill PIN
-      const pinPopup = this.locators.pinPopupField().first();
-      await expect(pinPopup).toBeVisible({ timeout: 15000 });
-      await pinPopup.fill(pin);
-
-      // // Verify toast
-      const toastmessage = this.locators.successToast().first();
-      await expect(toastmessage).toBeVisible({ timeout: 15000 });
-      await expect(toastmessage).toHaveText(/PIN matched successfully/i);
-
     });
   }
-  // Verify PIN is required 
-  async VerifyPINisRequired(pin: string) {
-    // ---------------- Navigate and select document ----------------
-    await test.step('Navigate to library and select document', async () => {
-      const libraryLink = this.locators.libraryLink().first();
-      await expect(libraryLink).toBeVisible({ timeout: 15000 });
-      await libraryLink.scrollIntoViewIfNeeded();
-      await libraryLink.click({ force: true });
 
-      const image = this.locators.clickImage().first();
-      await image.click({ force: true });
-    });
-
-    // ---------------- Download with Empty PIN ----------------
-    await test.step('Download document with correct PIN', async () => {
-      const downloadBtn = this.locators.privateDownloadButton().first();
-      await expect(downloadBtn).toBeVisible({ timeout: 15000 });
-      await downloadBtn.scrollIntoViewIfNeeded();
-      await downloadBtn.click({ force: true });
-
-      // Fill PIN
-      const pinPopup = this.locators.pinPopupField().first();
-      await expect(pinPopup).toBeVisible({ timeout: 15000 });
-      await pinPopup.fill(pin);
-
-      const saveButton = this.locators.saveButton();
-      await saveButton.click({ force: true });
-
-      // // Verify toast
-      const toast = this.locators.successToast().first();
-      await expect(toast).toBeVisible({ timeout: 15000 });
-      await expect(toast).toHaveText(/PIN matched successfully/i);
-
-    });
-  }
-  // download With Incorrect Pin
+  // ---------------- Incorrect PIN ----------------
   async downloadWithIncorrectPin(pin: string) {
     await test.step('Download with incorrect PIN', async () => {
+      const image = this.locators.clickImage().first();
+      await image.click({ force: true });
       const downloadBtn = this.locators.privateDownloadButton().first();
-      await expect(downloadBtn).toBeVisible({ timeout: 15000 });
-      await downloadBtn.scrollIntoViewIfNeeded();
       await downloadBtn.click({ force: true });
 
-      // Fill PIN
       const pinPopup = this.locators.pinPopupField().first();
-      await expect(pinPopup).toBeVisible({ timeout: 15000 });
       await pinPopup.fill(pin);
 
       const saveButton = this.locators.saveButton();
       await saveButton.click({ force: true });
 
-      // // Verify toast
-      const toast = this.locators.successToast().first();
-      await expect(toast).toBeVisible({ timeout: 15000 });
-      await expect(this.locators.errorToast().first()).toHaveText(/Invalid pin/i);
+      const errorToast = this.locators.pinInvalidErrorToast().first();
+      await expect(errorToast).toBeVisible({ timeout: 15000 });
+      await expect(errorToast).toHaveText(/Invalid PIN/i);
+      console.log(errorToast);
     });
   }
-  // Download with Empty PIN
+
+  // ---------------- Empty PIN ----------------
   async downloadWithEmptyPin() {
     await test.step('Download with empty PIN', async () => {
-      const libraryLink = this.locators.libraryLink().first();
-      await expect(libraryLink).toBeVisible({ timeout: 15000 });
-      await libraryLink.scrollIntoViewIfNeeded();
-      await libraryLink.click({ force: true });
-
       const image = this.locators.clickImage().first();
       await image.click({ force: true });
-    });
 
-    // ---------------- Download with correct PIN ----------------
-    await test.step('Download document with correct PIN', async () => {
       const downloadBtn = this.locators.privateDownloadButton().first();
-      await expect(downloadBtn).toBeVisible({ timeout: 15000 });
-      await downloadBtn.scrollIntoViewIfNeeded();
       await downloadBtn.click({ force: true });
 
       const saveButton = this.locators.saveButton();
       await saveButton.click({ force: true });
 
-      // // Verify toast
-      const toast = this.locators.errorToast().first();
-      await expect(toast).toBeVisible({ timeout: 15000 });
-      await expect(toast).toHaveText(/Please enter PIN first/i);
+      const errorToast = this.locators.pinEmptyErrorToast().first();
+      await expect(errorToast).toBeVisible({ timeout: 15000 });
+      await expect(errorToast).toHaveText(/Please enter PIN first/i);
+      console.log(errorToast);
     });
   }
 
@@ -221,20 +183,20 @@ export class MyProfileActions {
     await test.step(`Update calendar color to ${color}`, async () => {
       const colorField = this.locators.calendarColor().first();
       await colorField.fill(color);
-      const updateButton = this.locators.updateButton()
-      await updateButton.scrollIntoViewIfNeeded();
-      await this.locators.updateButton();
       expect(await colorField.inputValue()).toBe(color);
+
+      const updateButton = this.locators.updateButton();
+      await updateButton.scrollIntoViewIfNeeded();
+      await updateButton.click({ force: true });
     });
   }
 
   async tryInvalidCalendarColor(invalidColor: string) {
     await test.step(`Try invalid calendar color: ${invalidColor}`, async () => {
       const colorField = this.locators.calendarColor().first();
-      await expect(colorField).toBeVisible({ timeout: 15000 });
       await colorField.fill(invalidColor);
-      await expect(this.locators.errorToast().first()).toHaveText(/invalid color/i);
+      const errorToast = this.locators.pinInvalidErrorToast().first();
+      await expect(errorToast).toHaveText(/invalid color/i);
     });
   }
-
 }
