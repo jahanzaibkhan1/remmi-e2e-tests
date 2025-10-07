@@ -136,4 +136,25 @@ export class MyProfileLocators {
   pinInvalidErrorToast(): Locator {
     return this.page.getByRole('alert', { name: /Invalid PIN/i });
   }
+
+  // ---------------- Image Upload ----------------
+  imagesTab(): Locator {
+    return this.page.locator('[data-label="Images"], [aria-label="Images"], .images-tab, button:has-text("Images")');
+  }
+
+  addProfileImage(): Locator {
+    return this.page.locator('button:has-text("Add Profile Image"), .add-profile-image, [aria-label*="Add"], [title*="Add"]');
+  }
+
+  uploadImage(): Locator {
+    return this.page.locator('input[type="file"], .upload-button, button:has-text("Upload")');
+  }
+
+  profileImagePreview(): Locator {
+    return this.page.locator('.profile-image-preview, .uploaded-image, img[alt*="profile"]');
+  }
+
+  imageUploadSuccessToast(): Locator {
+    return this.page.getByRole('alert', { name: /Image uploaded successfully|Upload successful/i });
+  }
 }
