@@ -13,10 +13,12 @@ export class MyProfileActions {
   // ---------------- Navigation ----------------
   async navigateToProfilePage() {
     await test.step('Navigate to My Profile page', async () => {
+      // Use the updated profileIcon locator (handles both default and uploaded image states)
       const profileIcon = this.locators.profileIcon();
       await expect(profileIcon).toBeVisible({ timeout: 20000 });
       await profileIcon.click({ force: true });
 
+      // Use the updated myProfileButton locator
       const myProfileButton = this.locators.myProfileButton();
       await expect(myProfileButton).toBeVisible({ timeout: 20000 });
       await myProfileButton.click({ force: true });
@@ -62,30 +64,30 @@ export class MyProfileActions {
   }
 
   // ---------------- PIN ----------------
-async enterPinAndSave(pin: string) {
-  const pinField = this.locators.pin().first();
-  await pinField.fill(pin);
-  expect(await pinField.inputValue()).toBe(pin);
+  async enterPinAndSave(pin: string) {
+    await test.step('Enter PIN and save profile', async () => {
+      const pinField = this.locators.pin().first();
+      await expect(pinField).toBeVisible({ timeout: 10000 });
+      await pinField.fill(pin);
+      expect(await pinField.inputValue()).toBe(pin);
 
-  const updateButton = this.locators.updateButton().first();
+      const updateButton = this.locators.updateButton().first();
+      await expect(updateButton).toBeVisible({ timeout: 10000 });
+      await updateButton.scrollIntoViewIfNeeded();
 
-  // Ensure visible and scroll into view
-  await expect(updateButton).toBeVisible({ timeout: 10000 });
-  await updateButton.scrollIntoViewIfNeeded();
+      // Try normal click first, then force click if needed
+      try {
+        await updateButton.click({ timeout: 5000 });
+      } catch {
+        console.log('Normal click failed, using force click');
+        await updateButton.click({ force: true });
+      }
 
-  // Try normal click first, then force click if needed
-  try {
-    await updateButton.click({ timeout: 5000 });
-  } catch {
-    console.log('Normal click failed, using force click');
-    await updateButton.click({ force: true });
+      // Wait for toast
+      const toast = this.locators.profileUpdatedToast().first();
+      await expect.soft(toast).toHaveText(/Profile has been updated/i, { timeout: 15000 });
+    });
   }
-
-  // Wait for toast
-  const toast = this.locators.profileUpdatedToast().first();
-  await expect.soft(toast).toHaveText(/Profile has been updated/i, { timeout: 15000 });
-}
-
 
   // ---------------- Library ----------------
   async navigateToLibrary() {
@@ -98,31 +100,31 @@ async enterPinAndSave(pin: string) {
   }
 
   // ---------------- Private Download ----------------
-async downloadWithCorrectPin(pin: string) {
-  await test.step('Download with correct PIN', async () => {
-    const image = this.locators.clickImage().first();
-    await image.click({ force: true });
+  async downloadWithCorrectPin(pin: string) {
+    await test.step('Download with correct PIN', async () => {
+      const image = this.locators.clickImage().first();
+      await image.click({ force: true });
 
-    const downloadBtn = this.locators.privateDownloadButton().first();
-    await expect(downloadBtn).toBeVisible({ timeout: 15000 });
-    await downloadBtn.click({ force: true });
+      const downloadBtn = this.locators.privateDownloadButton().first();
+      await expect(downloadBtn).toBeVisible({ timeout: 15000 });
+      await downloadBtn.click({ force: true });
 
-    // Fill PIN directly in the popup
-    const pinPopup = this.locators.pinPopupField().first();
-    await expect(pinPopup).toBeVisible({ timeout: 15000 });
-    await pinPopup.fill(pin);
+      // Fill PIN directly in the popup
+      const pinPopup = this.locators.pinPopupField().first();
+      await expect(pinPopup).toBeVisible({ timeout: 15000 });
+      await pinPopup.fill(pin);
 
-    const confirmButton = this.page.getByRole('button', { name: /Confirm|Save/i });
-    await expect(confirmButton).toBeVisible({ timeout: 10000 });
-    await confirmButton.scrollIntoViewIfNeeded();
-    await confirmButton.click({ force: true });
+      const confirmButton = this.page.getByRole('button', { name: /Confirm|Save/i });
+      await expect(confirmButton).toBeVisible({ timeout: 10000 });
+      await confirmButton.scrollIntoViewIfNeeded();
+      await confirmButton.click({ force: true });
 
-    // Wait for PIN matched success toast
-    const successToast = this.locators.pinMatchedToast().first();
-    await expect.soft(successToast).toBeVisible({ timeout: 7000 });
-    await expect.soft(successToast).toContainText(/PIN matched successfully/i);
-  });
-}
+      // Wait for PIN matched success toast
+      const successToast = this.locators.pinMatchedToast().first();
+      await expect.soft(successToast).toBeVisible({ timeout: 7000 });
+      await expect.soft(successToast).toContainText(/PIN matched successfully/i);
+    });
+  }
 
   // ---------------- Verify PIN Required ----------------
   async verifyPINIsRequired() {
@@ -196,7 +198,7 @@ async downloadWithCorrectPin(pin: string) {
       await updateButton.click({ force: true });
     });
   }
-
+  // ---------------- Invalid Calendar Color ----------------
   async tryInvalidCalendarColor(invalidColor: string) {
     await test.step(`Try invalid calendar color: ${invalidColor}`, async () => {
       const colorField = this.locators.calendarColor().first();
@@ -205,4 +207,66 @@ async downloadWithCorrectPin(pin: string) {
       await expect(errorToast).toHaveText(/invalid color/i);
     });
   }
+  // ---------------- Navigate to Images Tab ----------------
+
+  async UploadImageProfile(imagePath: string) {
+    await test.step('Upload a profile image', async () => {
+      // Navigate to Images tab
+      const imagesTab = this.locators.imagesTab().first();
+      await imagesTab.click({ force: true });
+
+      // Check if "Add a profile image" button is visible
+      const addProfileImage = this.locators.addProfileImage().first();
+      const isAddProfileImageVisible = await addProfileImage.isVisible();
+
+      if (!isAddProfileImageVisible) {
+        // If image already exists, log and skip upload
+        console.log('Profile image already exists. Skipping upload.');
+        return;
+      }
+
+      // Click "Add a profile image" button
+      await addProfileImage.click({ force: true });
+
+      // Optionally click upload icon if required
+      const uploadImage = this.locators.uploadImage().first();
+      // Uncomment if needed:
+      // await uploadImage.click({ force: true });
+
+      // Upload the image file
+      const fileInput = await this.page.$('input[type="file"]');
+      if (!fileInput) throw new Error('File input not found for image upload');
+      await fileInput.setInputFiles(imagePath);
+
+      // Move the image slightly to the left before saving
+      const moveIcon = this.page.locator('div.ngx-ic-move').first();
+      const boundingBox = await moveIcon.boundingBox();
+      if (boundingBox) {
+        await moveIcon.hover();
+        await this.page.mouse.move(
+          boundingBox.x + boundingBox.width / 2,
+          boundingBox.y + boundingBox.height / 2
+        );
+        await this.page.mouse.down();
+        await this.page.mouse.move(
+          boundingBox.x + boundingBox.width / 2 - 30,
+          boundingBox.y + boundingBox.height / 2,
+          { steps: 5 }
+        );
+        await this.page.mouse.up();
+      } else {
+        throw new Error('Move icon bounding box not found');
+      }
+
+      // Click "Update Images" to save
+      const updateImages = this.locators.updateImages().first();
+      await updateImages.click({ force: true });
+
+      // Wait for success toast
+      const toast = this.locators.toast().first();
+      await expect(toast).toBeVisible({ timeout: 15000 });
+      await expect(toast).toHaveText(/Images updated successfully/i);
+    });
+  }
+  //-------------------Verify multiple images can be uploaded-------------
 }

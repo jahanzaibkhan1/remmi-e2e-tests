@@ -1,0 +1,110 @@
+<testsuites id="" name="" tests="22" failures="0" skipped="0" errors="0" time="491.74876800000294">
+<testsuite name="Pages\Login\login.spec.ts" timestamp="2025-10-07T12:37:42.363Z" hostname="chromium" tests="14" failures="0" skipped="0" time="255.462" errors="0">
+<testcase name="Login Tests - Remmi E2E › Positive Flows › Successful login with OTP" classname="Pages\Login\login.spec.ts" time="43.789">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Positive Flows › Verify OTP during login" classname="Pages\Login\login.spec.ts" time="24.478">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Positive Flows › Verify login placeholders" classname="Pages\Login\login.spec.ts" time="18.467">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Toggle password visibility" classname="Pages\Login\login.spec.ts" time="26.139">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Login without accepting terms" classname="Pages\Login\login.spec.ts" time="16.775">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Invalid email format" classname="Pages\Login\login.spec.ts" time="20.276">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Incorrect password" classname="Pages\Login\login.spec.ts" time="14.513">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Retry login after failed attempt" classname="Pages\Login\login.spec.ts" time="19.803">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Login with invalid OTP" classname="Pages\Login\login.spec.ts" time="15.057">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Forgot Password without entering OTP" classname="Pages\Login\login.spec.ts" time="20.438">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Empty email" classname="Pages\Login\login.spec.ts" time="10.49">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Empty password" classname="Pages\Login\login.spec.ts" time="7.517">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › Both email and password empty" classname="Pages\Login\login.spec.ts" time="7.668">
+</testcase>
+<testcase name="Login Tests - Remmi E2E › Negative Flows › OTP shorter/longer than expected" classname="Pages\Login\login.spec.ts" time="10.052">
+</testcase>
+</testsuite>
+<testsuite name="Pages\MyProfile\MyProfileImagesTest.spec.ts" timestamp="2025-10-07T12:37:42.363Z" hostname="chromium" tests="1" failures="0" skipped="0" time="29.534" errors="0">
+<testcase name="My Profile Tests - Remmi E2E › Positive Profile Images Flows › 1. User can upload a profile image" classname="Pages\MyProfile\MyProfileImagesTest.spec.ts" time="29.534">
+</testcase>
+</testsuite>
+<testsuite name="Pages\MyProfile\MyProfileTest.spec.ts" timestamp="2025-10-07T12:37:42.363Z" hostname="chromium" tests="7" failures="0" skipped="0" time="197.853" errors="0">
+<testcase name="My Profile Tests - Remmi E2E › Positive Flows › 1. Profile fields show data &amp; non-editable" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="31.465">
+<system-out>
+<![CDATA[First Name value: "EMPTY"
+First Name non-editable? ✅ Yes
+Last Name value: "EMPTY"
+Last Name non-editable? ✅ Yes
+Email value: "EMPTY"
+Email non-editable? ✅ Yes
+Mobile Number value: "401235678"
+Mobile Number non-editable? ✅ Yes
+Telephone value: "Telephone"
+Telephone non-editable? ✅ Yes
+Job Title value: "EMPTY"
+Job Title non-editable? ✅ Yes
+Biography value: "EMPTY"
+Biography non-editable? ✅ Yes
+Role value: "Operations Manager"
+Role non-editable? ✅ Yes
+Group value: "EMPTY"
+Group non-editable? ✅ Yes
+Office value: "QA Tester"
+Office non-editable? ✅ Yes
+]]>
+</system-out>
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Positive Flows › 2. PIN field allows input" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="31.994">
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Positive Flows › 3. Correct PIN allows private download" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="23.157">
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Negative Flows › 5. Fields remain non-editable if data missing" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="25.672">
+<system-out>
+<![CDATA[First Name value: "EMPTY"
+First Name non-editable? ✅ Yes
+Last Name value: "EMPTY"
+Last Name non-editable? ✅ Yes
+Email value: "EMPTY"
+Email non-editable? ✅ Yes
+Mobile Number value: "401235678"
+Mobile Number non-editable? ✅ Yes
+Telephone value: "Telephone"
+Telephone non-editable? ✅ Yes
+Job Title value: "EMPTY"
+Job Title non-editable? ✅ Yes
+Biography value: "EMPTY"
+Biography non-editable? ✅ Yes
+Role value: "Operations Manager"
+Role non-editable? ✅ Yes
+Group value: "EMPTY"
+Group non-editable? ✅ Yes
+Office value: "QA Tester"
+Office non-editable? ✅ Yes
+]]>
+</system-out>
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Negative Flows › 6. PIN is required for private download" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="29.227">
+<system-out>
+<![CDATA[getByRole('alert', { name: /Please enter PIN first/i }).first()
+]]>
+</system-out>
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Negative Flows › 7. Verify PIN is required for private download" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="27.87">
+<system-out>
+<![CDATA[getByRole('alert', { name: /Please enter PIN first/i }).first()
+]]>
+</system-out>
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Negative Flows › 8. Incorrect PIN prevents private download" classname="Pages\MyProfile\MyProfileTest.spec.ts" time="28.468">
+<system-out>
+<![CDATA[getByRole('alert', { name: /Invalid PIN/i }).first()
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>
