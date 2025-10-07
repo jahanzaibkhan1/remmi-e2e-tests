@@ -136,4 +136,17 @@ export class MyProfileLocators {
   pinInvalidErrorToast(): Locator {
     return this.page.getByRole('alert', { name: /Invalid PIN/i });
   }
+
+  // ---------------- Image Upload ----------------
+  imagesTab(): Locator {
+    return this.page.getByRole('tab', { name: /Images?/i });
+  }
+
+  addProfileImage(): Locator {
+    return this.page.getByRole('button', { name: /Add.*Profile.*Image/i });
+  }
+
+  uploadImage(): Locator {
+    return this.page.locator('input[type="file"]');
+  }
 }
