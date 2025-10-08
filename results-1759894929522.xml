@@ -1,0 +1,11 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="44.29419299999997">
+<testsuite name="Pages\MyProfile\MyProfileImagesTest.spec.ts" timestamp="2025-10-08T12:49:57.921Z" hostname="chromium" tests="1" failures="0" skipped="0" time="37.35" errors="0">
+<testcase name="My Profile Tests - Remmi E2E › Positive Profile Images Flows › 5. Verify thumbnails are removed when clicking cross button" classname="Pages\MyProfile\MyProfileImagesTest.spec.ts" time="37.35">
+<system-out>
+<![CDATA[✅ Verified: Three thumbnails appear successfully
+✅ Cross (delete) button clicked and image deleted successfully
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

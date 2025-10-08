@@ -160,10 +160,13 @@ export class MyProfileLocators {
   updateImages(): Locator {
     return this.page.locator('button:has-text("Update Images")');
   }
-  AddMoreImages():Locator{
+  AddMoreImagesButton():Locator{
     return this.page.locator("i[class='pi pi-plus f-12']");
   }
-  uploadMoreImage(index: number = 0): Locator {
-    return this.page.locator('div.ml-5 input[type="file"]');
+  uploadMoreImageButton(): Locator {
+    return this.page.locator('button:has-text("Upload Image"), div:has-text("Upload Image")');
+  }
+  defaultProfileCheckbox(): Locator {
+    return this.page.locator('div:nth-child(4) > .d-flex.align-items-center.my-2 > .d-flex > .p-element > .p-checkbox > .p-checkbox-box');
   }
 }
