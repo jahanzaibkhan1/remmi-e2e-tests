@@ -1,0 +1,49 @@
+<testsuites id="" name="" tests="5" failures="2" skipped="1" errors="0" time="107.96441899999976">
+<testsuite name="Pages\MyProfile\MyProfileImagesTest.spec.ts" timestamp="2025-10-08T12:54:42.753Z" hostname="chromium" tests="5" failures="2" skipped="1" time="90.599" errors="0">
+<testcase name="My Profile Tests - Remmi E2E › Positive Profile Images Flows › 1. User can upload a profile image" classname="Pages\MyProfile\MyProfileImagesTest.spec.ts" time="32.861">
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Positive Profile Images Flows › 2. User can open the upload multiple images flow" classname="Pages\MyProfile\MyProfileImagesTest.spec.ts" time="0.355">
+<failure message="MyProfileImagesTest.spec.ts:37:9 2. User can open the upload multiple images flow" type="FAILURE">
+<![CDATA[  [chromium] › Pages\MyProfile\MyProfileImagesTest.spec.ts:37:9 › My Profile Tests - Remmi E2E › Positive Profile Images Flows › 2. User can open the upload multiple images flow 
+
+    Error: browser._wrapApiCall: Error setting storage state:
+    net::ERR_FAILED at https://portal-staging.remmi.com.au
+    Call log:
+      - navigating to "about:blank", waiting until "load"
+      - navigating to "https://portal-staging.remmi.com.au", waiting until "load"
+
+]]>
+</failure>
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Positive Profile Images Flows › 3. Verify selected image is set as the profile image" classname="Pages\MyProfile\MyProfileImagesTest.spec.ts" time="36.973">
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Positive Profile Images Flows › 4. Verify thumbnails appear after image upload" classname="Pages\MyProfile\MyProfileImagesTest.spec.ts" time="20.409">
+<failure message="MyProfileImagesTest.spec.ts:48:9 4. Verify thumbnails appear after image upload" type="FAILURE">
+<![CDATA[  [chromium] › Pages\MyProfile\MyProfileImagesTest.spec.ts:48:9 › My Profile Tests - Remmi E2E › Positive Profile Images Flows › 4. Verify thumbnails appear after image upload 
+
+    Error: locator.fill: Target page, context or browser has been closed
+    Call log:
+      - waiting for locator('input.otp-input').first()
+
+
+       at Pages\Login\LoginAction.ts:35
+
+      33 |       const otpInputs = this.locators.otpField();
+      34 |       for (let i = 0; i < otp.length; i++) {
+    > 35 |         await otpInputs.nth(i).fill(otp[i]);
+         |                                ^
+      36 |       }
+      37 |       await this.locators.continueButton().click();
+      38 |     });
+        at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\LoginAction.ts:35:32
+        at LoginActions.login (C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\LoginAction.ts:31:16)
+        at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\MyProfile\MyProfileImagesTest.spec.ts:25:5
+]]>
+</failure>
+</testcase>
+<testcase name="My Profile Tests - Remmi E2E › Positive Profile Images Flows › 5. Verify thumbnails are removed when clicking cross button" classname="Pages\MyProfile\MyProfileImagesTest.spec.ts" time="0.001">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

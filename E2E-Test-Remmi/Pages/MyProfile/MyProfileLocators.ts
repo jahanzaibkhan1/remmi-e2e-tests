@@ -8,8 +8,18 @@ export class MyProfileLocators {
   constructor(private page: Page) {}
 
   // ---------------- Navigation ----------------
+  /**
+   * Returns the locator for the profile icon.
+   * Note: After uploading a profile image, the class or structure may change.
+   * This method attempts to handle both the default and post-upload states.
+   */
   profileIcon(): Locator {
-    return this.page.locator('.user_thumb.ng-star-inserted');
+    // Try the default selector first
+    const defaultIcon = this.page.locator('.user_thumb.ng-star-inserted');
+    // After image upload, the class may change (e.g., to .user_thumb.has-image or similar)
+    const uploadedIcon = this.page.locator("div.user-thumbnail-placeholder >> img");
+    // Return whichever is visible, fallback to default
+    return this.page.locator("div.user-thumbnail-placeholder >> img, .user_thumb.ng-star-inserted");
   }
 
   myProfileButton(): Locator {
@@ -137,6 +147,7 @@ export class MyProfileLocators {
     return this.page.getByRole('alert', { name: /Invalid PIN/i });
   }
 
+
   // ---------------- Image Upload ----------------
   imagesTab(): Locator {
     return this.page.getByRole('tab', { name: /Images?/i });
@@ -148,5 +159,28 @@ export class MyProfileLocators {
 
   uploadImage(): Locator {
     return this.page.locator('input[type="file"]');
+
+  // ---------------- Images Tab ----------------
+  imagesTab(): Locator {
+    return this.page.getByText('Images', { exact: true });;
+  }
+  addProfileImage(): Locator {
+    return this.page.locator("i[class='pi pi-plus f-12']");
+  }
+  uploadImage(index: number = 0): Locator {
+    return this.page.locator('[ptooltip="Upload Image"]');
+  }
+  updateImages(): Locator {
+    return this.page.locator('button:has-text("Update Images")');
+  }
+  AddMoreImagesButton():Locator{
+    return this.page.locator("i[class='pi pi-plus f-12']");
+  }
+  uploadMoreImageButton(): Locator {
+    return this.page.locator('button:has-text("Upload Image"), div:has-text("Upload Image")');
+  }
+  defaultProfileCheckbox(): Locator {
+    return this.page.locator('div:nth-child(4) > .d-flex.align-items-center.my-2 > .d-flex > .p-element > .p-checkbox > .p-checkbox-box');
+
   }
 }
