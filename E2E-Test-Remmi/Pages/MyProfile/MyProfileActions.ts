@@ -2,6 +2,7 @@ import { Page, Locator, expect, test } from '@playwright/test';
 import { MyProfileLocators } from './MyProfileLocators';
 import fs from 'fs';
 import path from 'path';
+import { verify } from 'crypto';
 
 export class MyProfileActions {
   private locators: MyProfileLocators;
@@ -442,77 +443,75 @@ export class MyProfileActions {
     });
   }
 
- // ---------------- Verify options to delete and edit low resolution and agent face thumbnails ----------------
+  // ---------------- Verify options to delete and edit low resolution and agent face thumbnails ----------------
 
- async manageExistingThumbnails(newImage: string) {
-  await test.step('Edit and delete existing thumbnails', async () => {
+  async manageExistingThumbnails(imagePath1: string, imagePath2: string) {
+    await test.step('Edit and delete low resolution and agent face thumbnails', async () => {
+      // Go to Images tab
+      await this.locators.imagesTab().first().click({ force: true });
 
-    // ----------- Go to Images tab -----------
-    await this.locators.imagesTab().first().click({ force: true });
+      // Verify Low Resolution and Agent Face thumbnails are visible
+      const lowResolutionImg = this.page.getByRole('img', { name: 'Low Resolution' }).first();
+      const agentFaceText = this.page.getByText('Agent Face', { exact: true }).first();
+      await expect(lowResolutionImg).toBeVisible();
+      await expect(agentFaceText).toBeVisible();
+      console.log('✅ Verified: Low Resolution and Agent Face thumbnails are visible');
 
-    // ----------- Get all existing thumbnail containers -----------
-    const thumbnails = this.page.locator('div.profile-section');
-    const count = await thumbnails.count();
-    if (count === 0) throw new Error('No thumbnails found to manage');
+      // --------- Edit the first thumbnail (Low Resolution) ---------
+      const editIcon = this.page.locator('.d-flex.align-items-center.justify-content-center').first();
+      // await editIcon.click({ force: true });
 
-    console.log(`🖼️ Found ${count} existing thumbnails`);
+      // Upload a new image for the Low Resolution thumbnail
+      const fileInput = await this.page.$('input[type="file"]');
+      if (!fileInput) throw new Error('File input not found for image upload');
+      await fileInput.setInputFiles(imagePath1);
+      // Click "Update Images" to save changes
+      const updateImagesBtn = this.locators.updateImages().first();
+      await updateImagesBtn.click({ force: true });
 
-    // ----------- Loop through thumbnails (or just last one) -----------
-    for (let i = 0; i < count; i++) {
-      const thumbnail = thumbnails.nth(i);
+      // Wait for and verify success toast
+      const toast = this.locators.toast().first();
+      await expect(toast).toBeVisible({ timeout: 15000 });
+      await expect(toast).toHaveText(/Images updated successfully/i);
 
-      // Edit icon
-      const editIcon = thumbnail.locator('div.edit-icon > .d-flex > img[alt="edit"]');
-      if (await editIcon.isVisible()) {
-        await editIcon.scrollIntoViewIfNeeded();
-        await editIcon.click({ force: true });
-        console.log(`✏️ Clicked edit icon for thumbnail ${i + 1}`);
+      // --------- Delete the Agent Face thumbnail ---------
+      const deleteIcon = this.page.locator('.edit-icon1 > .d-flex').first();
+      // await deleteIcon.click({ force: true });
 
-        const uploadIcon = thumbnail.locator('i.p-element.pi.pi-cloud-upload');
-        await expect(uploadIcon).toBeVisible();
-        await uploadIcon.click({ force: true });
-
-        const editFileInput = thumbnail.locator('input[type="file"][name="profile"]');
-        await expect(editFileInput).toBeVisible();
-        await editFileInput.setInputFiles(newImage);
-        console.log(`📤 Uploaded new image: ${newImage} for thumbnail ${i + 1}`);
-
-        const updateMessage = this.page.getByRole('alert', { name: 'Image updated' });
-        await expect(updateMessage).toBeVisible({ timeout: 10000 });
-        console.log(`✅ Thumbnail ${i + 1} updated successfully`);
+      // There may now be a new upload button/input for Agent Face
+      const uploadAgentFaceInput = await this.page.$('input[type="file"]');
+      if (!uploadAgentFaceInput) throw new Error('File input not found for Agent Face re-upload');
+      await uploadAgentFaceInput.setInputFiles(imagePath2);
+      // Move the image slightly to the left before saving
+      const moveIcon2 = this.page.locator('div.ngx-ic-move').first();
+      const boundingBox2 = await moveIcon2.boundingBox();
+      if (boundingBox2) {
+        await moveIcon2.hover();
+        await this.page.mouse.move(
+          boundingBox2.x + boundingBox2.width / 2,
+          boundingBox2.y + boundingBox2.height / 2
+        );
+        await this.page.mouse.down();
+        await this.page.mouse.move(
+          boundingBox2.x + boundingBox2.width / 2 - 30,
+          boundingBox2.y + boundingBox2.height / 2,
+          { steps: 5 }
+        );
+        await this.page.mouse.up();
+      } else {
+        throw new Error('Move icon bounding box not found');
       }
 
-      // Delete icon
-      const deleteIcon = thumbnail.locator('div.edit-icon1 > .d-flex > img[src*="delete_icon.svg"]');
-      if (await deleteIcon.isVisible()) {
-        await deleteIcon.scrollIntoViewIfNeeded();
-        await deleteIcon.click({ force: true });
-        console.log(`🗑️ Clicked delete icon for thumbnail ${i + 1}`);
+      // Save the updated images
+      const UpdateImageButton = this .locators.updateImages();
+      await UpdateImageButton.scrollIntoViewIfNeeded();
+      await UpdateImageButton.click({force: true})
+      // Wait for and verify success toast after re-upload
+      const toast2 = this.locators.toast().first();
+      await expect(toast2).toBeVisible({ timeout: 15000 });
+      await expect(toast2).toHaveText(/Images updated successfully/i);
 
-        const deleteMessage = this.page.getByRole('alert', { name: 'Image deleted' });
-        await expect(deleteMessage).toBeVisible({ timeout: 10000 });
-        console.log(`✅ Thumbnail ${i + 1} deleted successfully`);
-      }
-    }
-
-    // ----------- Optionally, re-upload image to the last thumbnail -----------
-    const lastThumbnail = thumbnails.nth(count - 1);
-    const reUploadIcon = lastThumbnail.locator('i.p-element.pi.pi-cloud-upload');
-    if (await reUploadIcon.isVisible()) {
-      await reUploadIcon.scrollIntoViewIfNeeded();
-      await reUploadIcon.click({ force: true });
-
-      const reUploadInput = lastThumbnail.locator('input[type="file"][name="profile"]');
-      await reUploadInput.setInputFiles(newImage);
-      console.log(`📤 Re-uploaded new image to last thumbnail`);
-
-      const finalUpdateMessage = this.page.getByRole('alert', { name: 'Image updated' });
-      await expect(finalUpdateMessage).toBeVisible({ timeout: 10000 });
-      console.log('✅ Last thumbnail re-uploaded and updated successfully');
-    }
-  });
-}
-
-
-
+      console.log('✅ Successfully edited, deleted, and re-uploaded Agent Face thumbnail');
+    });
+  }
 }
