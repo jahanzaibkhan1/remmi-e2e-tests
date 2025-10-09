@@ -1,8 +1,6 @@
 import { Page, Locator, expect, test } from '@playwright/test';
 import { MyProfileLocators } from './MyProfileLocators';
-import fs from 'fs';
-import path from 'path';
-import { verify } from 'crypto';
+
 
 export class MyProfileActions {
   private locators: MyProfileLocators;
@@ -66,6 +64,33 @@ export class MyProfileActions {
 
   // ---------------- PIN ----------------
   async enterPinAndSave(pin: string) {
+
+    await test.step('Enter PIN and save', async () => {
+      const pinField = this.locators.pin().first();
+      await pinField.fill(pin);
+      expect(await pinField.inputValue()).toBe(pin);
+
+      const updateButton = this.locators.updateButton().first();
+
+      // Ensure visible and scroll into view
+      await expect(updateButton).toBeVisible({ timeout: 10000 });
+      await updateButton.scrollIntoViewIfNeeded();
+
+      // Try normal click first, then force click if needed
+      try {
+        await updateButton.click({ timeout: 5000 });
+      } catch {
+        console.log('Normal click failed, using force click');
+        await updateButton.click({ force: true });
+      }
+
+      // Wait for toast
+      const toast = this.locators.profileUpdatedToast().first();
+      await expect.soft(toast).toHaveText(/Profile has been updated/i, { timeout: 15000 });
+    });
+  }
+
+
     await test.step('Enter PIN and save profile', async () => {
       const pinField = this.locators.pin().first();
       await expect(pinField).toBeVisible({ timeout: 10000 });
@@ -130,7 +155,7 @@ export class MyProfileActions {
       const downloadBtn = this.locators.privateDownloadButton().first();
       await downloadBtn.click({ force: true });
 
-      const saveButton = this.locators.saveButton();
+      const saveButton = this.locators.saveButton().first();
       await saveButton.click({ force: true });
 
       const toast = this.locators.pinEmptyErrorToast().first();
@@ -151,7 +176,7 @@ export class MyProfileActions {
       const pinPopup = this.locators.pinPopupField().first();
       await pinPopup.fill(pin);
 
-      const saveButton = this.locators.saveButton();
+      const saveButton = this.locators.saveButton().first();
       await saveButton.click({ force: true });
 
       const errorToast = this.locators.pinInvalidErrorToast().first();
@@ -170,7 +195,7 @@ export class MyProfileActions {
       const downloadBtn = this.locators.privateDownloadButton().first();
       await downloadBtn.click({ force: true });
 
-      const saveButton = this.locators.saveButton();
+      const saveButton = this.locators.saveButton().first();
       await saveButton.click({ force: true });
 
       const errorToast = this.locators.pinEmptyErrorToast().first();
@@ -187,11 +212,12 @@ export class MyProfileActions {
       await colorField.fill(color);
       expect(await colorField.inputValue()).toBe(color);
 
-      const updateButton = this.locators.updateButton();
+      const updateButton = this.locators.updateButton().first();
       await updateButton.scrollIntoViewIfNeeded();
       await updateButton.click({ force: true });
     });
   }
+
   // ---------------- Invalid Calendar Color ----------------
   async tryInvalidCalendarColor(invalidColor: string) {
     await test.step(`Try invalid calendar color: ${invalidColor}`, async () => {
@@ -201,6 +227,40 @@ export class MyProfileActions {
       await expect(errorToast).toHaveText(/invalid color/i);
     });
   }
+
+
+  // ---------------- Image Upload ----------------
+  async UploadImageProfile(imagePath: string) {
+    await test.step('Upload a profile image', async () => {
+      // Validate the image path parameter
+      if (!imagePath) {
+        throw new Error('Image path is required for upload');
+      }
+
+      // Navigate to images tab
+      const imagesTab = this.locators.imagesTab().first();
+      await expect(imagesTab).toBeVisible({ timeout: 15000 });
+      await imagesTab.click({ force: true });
+
+      // Click add profile image button
+      const addProfileImage = this.locators.addProfileImage().first();
+      await expect(addProfileImage).toBeVisible({ timeout: 15000 });
+      await addProfileImage.click({ force: true });
+
+      // Handle file upload
+      const uploadImage = this.locators.uploadImage().first();
+      await expect(uploadImage).toBeVisible({ timeout: 15000 });
+      await uploadImage.setInputFiles(imagePath);
+
+      // Wait for upload completion (you may need to adjust this based on your app's behavior)
+      // For example, wait for an upload success message or UI change
+      const toast = this.locators.toast().first();
+      await expect.soft(toast).toBeVisible({ timeout: 10000 });
+      
+      console.log(`Profile image uploaded successfully from: ${imagePath}`);
+    });
+  }
+}
   // ---------------- Navigate to Images Tab ----------------
 
   async UploadImageProfile(imagePath: string) {

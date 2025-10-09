@@ -147,6 +147,19 @@ export class MyProfileLocators {
     return this.page.getByRole('alert', { name: /Invalid PIN/i });
   }
 
+
+  // ---------------- Image Upload ----------------
+  imagesTab(): Locator {
+    return this.page.getByRole('tab', { name: /Images?/i });
+  }
+
+  addProfileImage(): Locator {
+    return this.page.getByRole('button', { name: /Add.*Profile.*Image/i });
+  }
+
+  uploadImage(): Locator {
+    return this.page.locator('input[type="file"]');
+
   // ---------------- Images Tab ----------------
   imagesTab(): Locator {
     return this.page.getByText('Images', { exact: true });;
@@ -168,5 +181,6 @@ export class MyProfileLocators {
   }
   defaultProfileCheckbox(): Locator {
     return this.page.locator('div:nth-child(4) > .d-flex.align-items-center.my-2 > .d-flex > .p-element > .p-checkbox > .p-checkbox-box');
+
   }
 }
