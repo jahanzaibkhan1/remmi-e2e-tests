@@ -1,0 +1,51 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="76.35775200000033">
+<testsuite name="Pages\MyProfile\MyProfileImagesTest.spec.ts" timestamp="2025-10-09T05:37:38.344Z" hostname="chromium" tests="1" failures="1" skipped="0" time="60.263" errors="0">
+<testcase name="My Profile Tests - Remmi E2E › Positive Profile Images Flows › 6. User can edit and delete low resolution and agent face thumbnails" classname="Pages\MyProfile\MyProfileImagesTest.spec.ts" time="60.263">
+<failure message="MyProfileImagesTest.spec.ts:60:9 6. User can edit and delete low resolution and agent face thumbnails" type="FAILURE">
+<![CDATA[  [chromium] › Pages\MyProfile\MyProfileImagesTest.spec.ts:60:9 › My Profile Tests - Remmi E2E › Positive Profile Images Flows › 6. User can edit and delete low resolution and agent face thumbnails 
+
+    Test timeout of 60000ms exceeded while running "beforeEach" hook.
+
+      13 |   let profile: MyProfileActions;
+      14 |
+    > 15 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      16 |     login = new LoginActions(page);
+      17 |     profile = new MyProfileActions(page);
+      18 |
+        at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\MyProfile\MyProfileImagesTest.spec.ts:15:8
+
+    Error: page.goto: Test timeout of 60000ms exceeded.
+    Call log:
+      - navigating to "https://portal-staging.remmi.com.au/login", waiting until "load"
+
+
+       at Pages\Login\LoginAction.ts:15
+
+      13 |   /** Successful login with OTP */
+      14 |   async login(email: string, password: string, otpSecret: string) {
+    > 15 |     await this.page.goto('/login');
+         |                     ^
+      16 |
+      17 |     await test.step('Enter credentials', async () => {
+      18 |       await this.locators.emailField().fill(email);
+        at LoginActions.login (C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\Login\LoginAction.ts:15:21)
+        at C:\Users\Muhammad Jahanzaib\Desktop\remmi-e2e-tests\E2E-Test-Remmi\Pages\MyProfile\MyProfileImagesTest.spec.ts:25:17
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\Pages-MyProfile-MyProfileI-0b92c-n-and-agent-face-thumbnails-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\Pages-MyProfile-MyProfileI-0b92c-n-and-agent-face-thumbnails-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\Pages-MyProfile-MyProfileI-0b92c-n-and-agent-face-thumbnails-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\Pages-MyProfile-MyProfileI-0b92c-n-and-agent-face-thumbnails-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

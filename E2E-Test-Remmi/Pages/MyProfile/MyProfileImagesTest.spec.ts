@@ -57,13 +57,13 @@ test.describe('My Profile Tests - Remmi E2E', () => {
       await profile.verifyThumbnailsAreRemoved(imagePath);
     });
 
-    // test('6. Verify options to delete and edit low resolution and agent face thumbnails ', async () => {
-    //   await profile.navigateToProfilePage();
+    test('6. User can edit and delete low resolution and agent face thumbnails', async () => {
+      await profile.navigateToProfilePage();
+      const imagePath1 = path.resolve(__dirname, 'Images/High.jpg')
+      const imagePath2 = path.resolve(__dirname, 'Images/Profile.jpg') 
 
-    //   const initialImage = path.resolve(__dirname, 'Images/High.jpg'); 
-
-    //   // Perform full workflow on last thumbnail
-    //   await profile.manageExistingThumbnails(initialImage);
-    // });
+      // Edit and delete the first existing thumbnail (low resolution or agent face)
+      await profile.manageExistingThumbnails(imagePath1, imagePath2);
+    });
   });
 });
